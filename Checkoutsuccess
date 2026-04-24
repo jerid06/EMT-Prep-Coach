@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMS Prep — Payment Successful</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const _supa = supabase.createClient(
+  'https://knrilavynnnlpegfxdkt.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtucmlsYXZ5bm5ubHBlZ2Z4ZGt0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwMDIzNzQsImV4cCI6MjA5MjU3ODM3NH0.u5Vd3Ph7oCMfa8geNsa6oHynuTbD5RH5GD_J0IsEdN8'
+);
+const PLAN_DAYS = { monthly: 30, '90day': 90, annual: 365 };
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#090c11;--surf:#111720;--border:#1e2a3a;--red:#e63946;--green:#2dc653;--amber:#f4a261;--text:#b8cce0;--muted:#4d6070;--white:#eef3fa;}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,.01) 2px,rgba(255,255,255,.01) 3px);pointer-events:none;z-index:999;}
+
+.card{
+background:var(–surf);border:1px solid var(–border);border-radius:16px;
+padding:48px 40px;max-width:460px;width:100%;text-align:center;
+position:relative;overflow:hidden;
+}
+.card::before{
+content:’’;position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+width:300px;height:300px;
+background:radial-gradient(circle,rgba(45,198,83,.08) 0%,transparent 65%);
+pointer-events:none;
+}
+
+/* Loading state */
+.loading-state{animation:fadeIn .3s ease;}
+.spinner{
+width:48px;height:48px;border-radius:50%;
+border:3px solid var(–border);border-top-color:var(–red);
+animation:spin .8s linear infinite;margin:0 auto 24px;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-title{font-family:‘Barlow Condensed’,sans-serif;font-size:22px;font-weight:800;color:var(–white);margin-bottom:8px;}
+.loading-sub{font-size:13px;color:var(–muted);}
+
+/* Success state */
+.success-state{display:none;animation:up .4s ease both;}
+.success-ring{
+width:80px;height:80px;border-radius:50%;
+background:rgba(45,198,83,.1);border:2px solid rgba(45,198,83,.3);
+display:flex;align-items:center;justify-content:center;
+font-size:36px;margin:0 auto 24px;
+animation:pop .5s .1s ease both;
+}
+@keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.1);}100%{transform:scale(1);}}
+.success-title{font-family:‘Barlow Condensed’,sans-serif;font-size:34px;font-weight:900;color:var(–white);margin-bottom:8px;}
+.success-sub{font-size:14px;font-weight:300;color:var(–muted);line-height:1.6;margin-bottom:28px;}
+
+.detail-box{
+background:rgba(255,255,255,.03);border:1px solid var(–border);border-radius:10px;
+padding:16px;margin-bottom:28px;text-align:left;
+}
+.detail-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px;}
+.detail-row:last-child{margin-bottom:0;}
+.detail-label{color:var(–muted);}
+.detail-val{color:var(–white);font-weight:500;}
+
+.go-btn{
+width:100%;padding:15px;background:var(–red);color:white;border:none;border-radius:8px;
+font-family:‘Barlow Condensed’,sans-serif;font-size:16px;font-weight:800;
+letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;
+box-shadow:0 4px 20px rgba(230,57,70,.3);
+}
+.go-btn:hover{background:#ff4d5a;transform:translateY(-1px);}
+
+/* Error state */
+.error-state{display:none;}
+.error-icon{font-size:48px;margin-bottom:16px;}
+.error-title{font-family:‘Barlow Condensed’,sans-serif;font-size:26px;font-weight:900;color:var(–white);margin-bottom:8px;}
+.error-sub{font-size:13px;color:var(–muted);margin-bottom:24px;line-height:1.6;}
+.retry-btn{
+display:inline-block;padding:12px 28px;background:var(–surf);color:var(–text);
+border:1px solid var(–border);border-radius:8px;text-decoration:none;
+font-family:‘Barlow Condensed’,sans-serif;font-size:14px;font-weight:700;
+letter-spacing:.06em;text-transform:uppercase;transition:all .15s;
+}
+.retry-btn:hover{border-color:var(–muted);color:var(–white);}
+
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes up{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+</style>
+
+</head>
+<body>
+<div class="card">
+
+  <!-- LOADING -->
+
+  <div class="loading-state" id="loading-state">
+    <div class="spinner"></div>
+    <div class="loading-title">Activating your access...</div>
+    <div class="loading-sub">Setting up your account. This takes just a second.</div>
+  </div>
+
+  <!-- SUCCESS -->
+
+  <div class="success-state" id="success-state">
+    <div class="success-ring">🎉</div>
+    <div class="success-title">You're all set!</div>
+    <div class="success-sub">Your subscription is active. You will be billed automatically each cycle. Cancel anytime from your account settings.</div>
+    <div class="detail-box">
+      <div class="detail-row"><span class="detail-label">Plan</span><span class="detail-val" id="det-plan">—</span></div>
+      <div class="detail-row"><span class="detail-label">Next renewal</span><span class="detail-val" id="det-expires">—</span></div>
+      <div class="detail-row"><span class="detail-label">Account email</span><span class="detail-val" id="det-email">—</span></div>
+    </div>
+    <button class="go-btn" onclick="window.location.href='ems-dashboard.html'">Go to Dashboard →</button>
+  </div>
+
+  <!-- ERROR -->
+
+  <div class="error-state" id="error-state">
+    <div class="error-icon">⚠️</div>
+    <div class="error-title">Something went wrong</div>
+    <div class="error-sub" id="error-msg">We couldn't activate your access. Please contact support with your payment confirmation.</div>
+    <a href="ems-checkout.html" class="retry-btn">Try Again</a>
+  </div>
+
+</div>
+
+<script>
+const PLAN_NAMES = { monthly: 'Monthly — $19.99/mo', '90day': '90-Day — $49.99/qtr', annual: 'Annual — $199.99/yr' };
+
+async function activate() {
+  const params = new URLSearchParams(window.location.search);
+  const planId = params.get('plan') || '90day';
+
+  try {
+    // Get current user session
+    const { data: { session }, error: sessionError } = await _supa.auth.getSession();
+
+    if (sessionError || !session) {
+      showError('Could not verify your account. Please sign in and contact support if the issue persists.');
+      return;
+    }
+
+    const user = session.user;
+    const days = PLAN_DAYS[planId] || 90;
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + days);
+
+    // Record access in Supabase
+    const { error: accessError } = await _supa.from('access').insert({
+      user_id: user.id,
+      plan: planId,
+      expires_at: expiresAt.toISOString(),
+      stripe_payment_id: params.get('session_id') || null,
+    });
+
+    if (accessError) {
+      // Access may already exist — still proceed
+      console.warn('Access insert warning:', accessError.message);
+    }
+
+    // Show success
+    document.getElementById('det-plan').textContent = PLAN_NAMES[planId] || planId;
+    document.getElementById('det-expires').textContent = expiresAt.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+    document.getElementById('det-email').textContent = user.email;
+
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('success-state').style.display = 'block';
+
+    // Auto-redirect after 4 seconds
+    setTimeout(() => window.location.href = 'ems-dashboard.html', 4000);
+
+  } catch (err) {
+    showError('An unexpected error occurred: ' + err.message);
+  }
+}
+
+function showError(msg) {
+  document.getElementById('loading-state').style.display = 'none';
+  document.getElementById('error-msg').textContent = msg;
+  document.getElementById('error-state').style.display = 'block';
+}
+
+// Run on page load
+activate();
+</script>
+
+</body>
+</html>
