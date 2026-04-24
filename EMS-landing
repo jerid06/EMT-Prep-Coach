@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMS Prep — Pass Your NREMT</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#090c11;--bg2:#0d1018;--surf:#111720;--surf2:#171e2b;
+  --border:#1e2a3a;--border2:#263347;
+  --red:#e63946;--red2:#ff4d5a;--amber:#f4a261;--green:#2dc653;
+  --text:#b8cce0;--muted:#4d6070;--white:#eef3fa;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,.012) 2px,rgba(255,255,255,.012) 3px);pointer-events:none;z-index:999;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;align-items:center;padding:0 40px;background:rgba(9,12,17,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(–border);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto;}
+.nav-icon{width:34px;height:34px;background:var(–red);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 0 16px rgba(230,57,70,.4);}
+.nav-brand{font-family:‘Barlow Condensed’,sans-serif;font-weight:900;font-size:19px;letter-spacing:.07em;color:var(–white);}
+.nav-brand em{font-style:normal;color:var(–red);}
+.nav-pill{background:rgba(230,57,70,.1);border:1px solid rgba(230,57,70,.25);color:var(–red);font-family:‘Barlow Condensed’,sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:3px;margin-right:20px;}
+.nav-cta{background:var(–red);color:white;border:none;padding:9px 22px;border-radius:6px;font-family:‘Barlow Condensed’,sans-serif;font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .15s;}
+.nav-cta:hover{background:var(–red2);transform:translateY(-1px);}
+
+/* HERO */
+.hero{position:relative;padding:140px 24px 100px;text-align:center;overflow:hidden;}
+.hero-glow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:900px;height:500px;background:radial-gradient(ellipse at 50% 0%,rgba(230,57,70,.1) 0%,transparent 65%);pointer-events:none;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(230,57,70,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(230,57,70,.04) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,black,transparent);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(230,57,70,.08);border:1px solid rgba(230,57,70,.3);border-radius:3px;padding:5px 14px;font-family:‘Barlow Condensed’,sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(–red);margin-bottom:30px;animation:up .5s ease both;}
+.blink{width:6px;height:6px;background:var(–red);border-radius:50%;animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.15;}}
+.hero-h1{font-family:‘Barlow Condensed’,sans-serif;font-size:clamp(58px,11vw,118px);font-weight:900;line-height:.88;color:var(–white);margin-bottom:24px;animation:up .5s .07s ease both;}
+.hero-h1 .out{color:transparent;-webkit-text-stroke:1.5px rgba(230,57,70,.55);}
+.hero-h1 .hot{color:var(–red);-webkit-text-stroke:0;}
+.hero-p{font-size:17px;font-weight:300;color:var(–muted);max-width:430px;margin:0 auto 44px;line-height:1.7;animation:up .5s .14s ease both;}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:70px;animation:up .5s .2s ease both;}
+.btn-red{background:var(–red);color:white;border:none;padding:15px 38px;border-radius:6px;font-family:‘Barlow Condensed’,sans-serif;font-size:16px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;box-shadow:0 4px 28px rgba(230,57,70,.3);}
+.btn-red:hover{background:var(–red2);transform:translateY(-2px);box-shadow:0 8px 36px rgba(230,57,70,.4);}
+.btn-ghost{background:transparent;color:var(–text);border:1px solid var(–border2);padding:15px 32px;border-radius:6px;font-family:‘Barlow Condensed’,sans-serif;font-size:16px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;}
+.btn-ghost:hover{border-color:var(–muted);color:var(–white);}
+.hero-stats{display:inline-flex;border:1px solid var(–border);border-radius:10px;overflow:hidden;background:var(–surf);animation:up .5s .27s ease both;}
+.h-stat{padding:18px 34px;text-align:center;border-right:1px solid var(–border);}
+.h-stat:last-child{border-right:none;}
+.h-stat-n{font-family:‘Barlow Condensed’,sans-serif;font-size:28px;font-weight:900;color:var(–white);display:block;line-height:1;}
+.h-stat-l{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(–muted);display:block;margin-top:5px;}
+@keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* SHARED */
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(–border),transparent);}
+.kicker{font-family:‘Barlow Condensed’,sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(–red);display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.kicker::before{content:’’;display:block;width:20px;height:1px;background:var(–red);}
+.sec-title{font-family:‘Barlow Condensed’,sans-serif;font-size:clamp(30px,4vw,48px);font-weight:900;color:var(–white);line-height:1;margin-bottom:12px;}
+.sec-sub{font-size:14px;font-weight:300;color:var(–muted);line-height:1.65;max-width:480px;}
+
+/* CATEGORIES */
+.cats-section{padding:100px 0;}
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:52px;}
+.cat-card{background:var(–surf);border:1px solid var(–border);border-radius:12px;padding:26px 22px;position:relative;overflow:hidden;transition:transform .2s,border-color .2s;}
+.cat-card::after{content:’’;position:absolute;top:0;left:0;right:0;height:2px;background:var(–c,var(–red));transform:scaleX(0);transform-origin:left;transition:transform .25s;}
+.cat-card:hover{transform:translateY(-3px);border-color:var(–border2);}
+.cat-card:hover::after{transform:scaleX(1);}
+.cat-emoji{font-size:28px;margin-bottom:14px;display:block;}
+.cat-name{font-family:‘Barlow Condensed’,sans-serif;font-size:17px;font-weight:800;color:var(–white);margin-bottom:5px;}
+.cat-desc{font-size:12px;color:var(–muted);line-height:1.5;margin-bottom:18px;}
+.cat-foot{display:flex;align-items:center;justify-content:space-between;}
+.cat-count{font-family:‘Barlow Condensed’,sans-serif;font-size:12px;font-weight:700;color:var(–muted);}
+.pips{display:flex;gap:3px;}
+.pip{width:18px;height:3px;border-radius:2px;background:var(–border);}
+.pip.on{background:var(–c,var(–red));}
+
+/* FEATURES */
+.feat-section{padding:100px 0;background:var(–bg2);border-top:1px solid var(–border);border-bottom:1px solid var(–border);}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(–border);border:1px solid var(–border);border-radius:12px;overflow:hidden;margin-top:52px;}
+.feat-block{background:var(–surf);padding:36px 30px;}
+.feat-icon{font-size:28px;margin-bottom:18px;display:block;}
+.feat-title{font-family:‘Barlow Condensed’,sans-serif;font-size:20px;font-weight:800;color:var(–white);margin-bottom:10px;}
+.feat-desc{font-size:13px;font-weight:300;color:var(–muted);line-height:1.65;}
+
+/* PRICING */
+.pricing-section{padding:100px 0;}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px;align-items:start;}
+.plan{background:var(–surf);border:1px solid var(–border);border-radius:14px;padding:32px 28px;position:relative;transition:transform .2s,border-color .2s;}
+.plan:hover{transform:translateY(-4px);border-color:var(–border2);}
+.plan.best{border-color:var(–red);background:linear-gradient(160deg,rgba(230,57,70,.06) 0%,var(–surf) 55%);box-shadow:0 0 50px rgba(230,57,70,.1),0 20px 50px rgba(0,0,0,.4);transform:scale(1.03);}
+.plan.best:hover{transform:scale(1.03) translateY(-4px);}
+.best-tag{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(–red);color:white;font-family:‘Barlow Condensed’,sans-serif;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:4px 14px;border-radius:100px;white-space:nowrap;}
+.plan-label{font-family:‘Barlow Condensed’,sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(–muted);margin-bottom:20px;}
+.plan.best .plan-label{color:var(–red);}
+.price-row{display:flex;align-items:flex-end;gap:3px;margin-bottom:4px;}
+.price-sym{font-family:‘Barlow Condensed’,sans-serif;font-size:20px;font-weight:700;color:var(–muted);padding-bottom:5px;}
+.price-int{font-family:‘Barlow Condensed’,sans-serif;font-size:56px;font-weight:900;color:var(–white);line-height:1;}
+.price-dec{font-family:‘Barlow Condensed’,sans-serif;font-size:22px;font-weight:700;color:var(–white);padding-bottom:6px;}
+.plan-note{font-size:12px;color:var(–muted);margin-bottom:6px;}
+.plan-save{display:inline-block;font-family:‘Barlow Condensed’,sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(–green);background:rgba(45,198,83,.1);border:1px solid rgba(45,198,83,.2);border-radius:3px;padding:2px 8px;margin-bottom:20px;}
+.plan-save.ghost{visibility:hidden;}
+.plan-div{height:1px;background:var(–border);margin-bottom:20px;}
+.plan-tagline{font-size:13px;font-weight:300;color:var(–muted);line-height:1.6;margin-bottom:24px;}
+.plan-feats{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:30px;}
+.plan-feats li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(–text);line-height:1.4;}
+.chk{width:17px;height:17px;border-radius:50%;background:rgba(45,198,83,.12);border:1px solid rgba(45,198,83,.25);color:var(–green);font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.plan-btn{width:100%;padding:14px;border-radius:8px;border:none;font-family:‘Barlow Condensed’,sans-serif;font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;}
+.btn-primary{background:var(–red);color:white;box-shadow:0 4px 20px rgba(230,57,70,.3);}
+.btn-primary:hover{background:var(–red2);transform:translateY(-1px);}
+.btn-sec{background:transparent;color:var(–text);border:1px solid var(–border2);}
+.btn-sec:hover{border-color:var(–muted);color:var(–white);}
+.pricing-note{text-align:center;font-size:12px;color:var(–muted);margin-top:28px;}
+.pricing-note span{color:var(–green);}
+
+/* TESTIMONIALS */
+.testi-section{padding:100px 0;background:var(–bg2);border-top:1px solid var(–border);}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:52px;}
+.testi-card{background:var(–surf);border:1px solid var(–border);border-radius:12px;padding:26px;}
+.testi-stars{color:var(–amber);font-size:12px;letter-spacing:2px;margin-bottom:14px;}
+.testi-q{font-size:14px;font-style:italic;font-weight:300;color:var(–text);line-height:1.65;margin-bottom:20px;}
+.testi-author{display:flex;align-items:center;gap:10px;}
+.testi-avi{width:36px;height:36px;border-radius:50%;background:var(–surf2);border:1px solid var(–border);display:flex;align-items:center;justify-content:center;font-size:15px;}
+.testi-name{font-family:‘Barlow Condensed’,sans-serif;font-size:14px;font-weight:700;color:var(–white);}
+.testi-role{font-size:11px;color:var(–muted);}
+
+/* FINAL CTA */
+.final-section{padding:120px 24px;text-align:center;position:relative;overflow:hidden;border-top:1px solid var(–border);}
+.final-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(230,57,70,.07) 0%,transparent 65%);pointer-events:none;}
+.final-h{font-family:‘Barlow Condensed’,sans-serif;font-size:clamp(40px,7vw,80px);font-weight:900;color:var(–white);line-height:.95;margin-bottom:18px;}
+.final-sub{font-size:16px;font-weight:300;color:var(–muted);margin-bottom:40px;}
+.final-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+/* FOOTER */
+footer{border-top:1px solid var(–border);padding:28px 40px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.footer-brand{font-family:‘Barlow Condensed’,sans-serif;font-size:15px;font-weight:900;letter-spacing:.08em;color:var(–white);}
+.footer-brand em{font-style:normal;color:var(–red);}
+.footer-copy{font-size:11px;color:var(–muted);}
+.footer-links{display:flex;gap:20px;}
+.footer-links a{font-size:11px;color:var(–muted);text-decoration:none;transition:color .15s;}
+.footer-links a:hover{color:var(–text);}
+
+@media(max-width:768px){
+nav{padding:0 18px;}.nav-pill{display:none;}
+.cat-grid,.pricing-grid,.feat-grid,.testi-grid{grid-template-columns:1fr;}
+.plan.best{transform:none;}.plan.best:hover{transform:translateY(-4px);}
+.hero-stats{flex-wrap:wrap;}
+.h-stat{border-right:none;border-bottom:1px solid var(–border);min-width:50%;}
+footer{flex-direction:column;text-align:center;}
+}
+
+/* Hamburger */
+.hamburger-btn{
+display:none;
+width:36px;height:36px;border-radius:8px;
+background:var(–surf);border:1px solid var(–border);
+align-items:center;justify-content:center;
+cursor:pointer;flex-direction:column;gap:5px;
+transition:border-color .15s;margin-left:16px;
+}
+.hamburger-btn:hover{border-color:var(–border2);}
+.hamburger-btn span{display:block;width:16px;height:2px;background:var(–text);border-radius:2px;transition:all .25s ease;}
+.hamburger-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger-btn.open span:nth-child(2){opacity:0;}
+.hamburger-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* Mobile nav drawer */
+.mobile-nav{
+display:none;
+position:fixed;top:62px;left:0;right:0;
+background:rgba(9,12,17,.98);backdrop-filter:blur(16px);
+border-bottom:1px solid var(–border);
+padding:16px 20px 24px;
+flex-direction:column;gap:4px;
+z-index:199;
+animation:slideDown .2s ease both;
+}
+.mobile-nav.open{display:flex;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.mobile-nav a{
+color:var(–text);text-decoration:none;
+font-size:15px;font-weight:500;
+padding:12px 4px;border-bottom:1px solid var(–border);
+}
+.mobile-nav a:last-child{border-bottom:none;}
+.mobile-nav .mob-cta{
+margin-top:12px;
+background:var(–red);color:white;
+padding:13px;border-radius:8px;text-align:center;
+font-family:‘Barlow Condensed’,sans-serif;font-size:15px;font-weight:800;
+letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;
+}
+
+@media(max-width:640px){
+.hamburger-btn{display:flex;}
+.nav-pill{display:none;}
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-icon">🚑</div>
+    <span class="nav-brand">EMS<em>PREP</em></span>
+  </a>
+  <span class="nav-pill">EMT Level</span>
+  <a href="ems-login.html" style="font-size:13px;color:var(--muted);text-decoration:none;margin-right:16px;font-weight:500;">Sign In</a>
+  <button class="nav-cta" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Get Access</button>
+  <button class="hamburger-btn" id="ham-btn" onclick="toggleMobileNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#categories" onclick="closeMobileNav()">Categories</a>
+  <a href="#pricing" onclick="closeMobileNav()">Pricing</a>
+  <a href="ems-login.html">Sign In</a>
+  <button class="mob-cta" onclick="window.location.href='#pricing';closeMobileNav()">Get Access</button>
+</div>
+
+<!-- HERO -->
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-badge"><div class="blink"></div>EMT-Basic · NREMT Prep · 447 Questions</div>
+  <h1 class="hero-h1">TRAIN HARD.<br><span class="out">PASS <span class="hot">NREMT.</span></span></h1>
+  <p class="hero-p">Adaptive practice tests built for EMT-Basic certification. Every question has a detailed explanation — because understanding beats memorizing.</p>
+  <div class="hero-btns">
+    <button class="btn-red" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Choose a Plan →</button>
+    <button class="btn-ghost" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">See What's Covered</button>
+  </div>
+  <div class="hero-stats">
+    <div class="h-stat"><span class="h-stat-n">447+</span><span class="h-stat-l">Questions</span></div>
+    <div class="h-stat"><span class="h-stat-n">6</span><span class="h-stat-l">Categories</span></div>
+    <div class="h-stat"><span class="h-stat-n">3</span><span class="h-stat-l">Difficulty Tiers</span></div>
+    <div class="h-stat"><span class="h-stat-n">EMT</span><span class="h-stat-l">Level Only</span></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CATEGORIES -->
+
+<section class="cats-section" id="categories">
+  <div class="wrap">
+    <div class="kicker">What's Covered</div>
+    <div class="sec-title">6 Core EMT Categories</div>
+    <div class="sec-sub">Every category mirrors the NREMT content outline — from airway basics to EMS operations.</div>
+    <div class="cat-grid">
+      <div class="cat-card" style="--c:#4fa3e0">
+        <span class="cat-emoji">💨</span>
+        <div class="cat-name">Airway &amp; Breathing</div>
+        <div class="cat-desc">Airway management, ventilation, oxygen delivery, respiratory assessment and emergencies</div>
+        <div class="cat-foot"><span class="cat-count">~70 Questions</span><div class="pips"><div class="pip on" style="--c:#4fa3e0"></div><div class="pip on" style="--c:#4fa3e0"></div><div class="pip on" style="--c:#4fa3e0"></div></div></div>
+      </div>
+      <div class="cat-card" style="--c:#e63946">
+        <span class="cat-emoji">❤️</span>
+        <div class="cat-name">Cardiac &amp; Circulation</div>
+        <div class="cat-desc">CPR, AED, cardiac emergencies, dysrhythmia recognition, STEMI, chest pain protocols</div>
+        <div class="cat-foot"><span class="cat-count">~96 Questions</span><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div></div></div>
+      </div>
+      <div class="cat-card" style="--c:#f4a261">
+        <span class="cat-emoji">🩹</span>
+        <div class="cat-name">Trauma</div>
+        <div class="cat-desc">Hemorrhage control, fractures, burns, shock management, TBI, spinal injuries</div>
+        <div class="cat-foot"><span class="cat-count">~66 Questions</span><div class="pips"><div class="pip on" style="--c:#f4a261"></div><div class="pip on" style="--c:#f4a261"></div><div class="pip on" style="--c:#f4a261"></div></div></div>
+      </div>
+      <div class="cat-card" style="--c:#2dc653">
+        <span class="cat-emoji">💊</span>
+        <div class="cat-name">Medical Emergencies</div>
+        <div class="cat-desc">Stroke, diabetes, seizures, overdose, anaphylaxis, altered mental status</div>
+        <div class="cat-foot"><span class="cat-count">~91 Questions</span><div class="pips"><div class="pip on" style="--c:#2dc653"></div><div class="pip on" style="--c:#2dc653"></div><div class="pip on" style="--c:#2dc653"></div></div></div>
+      </div>
+      <div class="cat-card" style="--c:#a78bfa">
+        <span class="cat-emoji">📻</span>
+        <div class="cat-name">EMS Operations</div>
+        <div class="cat-desc">Scene safety, triage, MCI, legal and ethical issues, documentation, protocols</div>
+        <div class="cat-foot"><span class="cat-count">~67 Questions</span><div class="pips"><div class="pip on" style="--c:#a78bfa"></div><div class="pip on" style="--c:#a78bfa"></div><div class="pip on" style="--c:#a78bfa"></div></div></div>
+      </div>
+      <div class="cat-card" style="--c:#f472b6">
+        <span class="cat-emoji">🧒</span>
+        <div class="cat-name">Pediatric Care</div>
+        <div class="cat-desc">Pediatric assessment, CPR differences, respiratory emergencies, abuse recognition</div>
+        <div class="cat-foot"><span class="cat-count">~78 Questions</span><div class="pips"><div class="pip on" style="--c:#f472b6"></div><div class="pip on" style="--c:#f472b6"></div><div class="pip on" style="--c:#f472b6"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURES -->
+
+<section class="feat-section">
+  <div class="wrap">
+    <div class="kicker">How It Works</div>
+    <div class="sec-title">Built to Get You Certified</div>
+    <div class="sec-sub">Not flashcards. A full adaptive system that finds your weaknesses and closes them before test day.</div>
+    <div class="feat-grid">
+      <div class="feat-block">
+        <span class="feat-icon">🎯</span>
+        <div class="feat-title">Adaptive Difficulty</div>
+        <div class="feat-desc">Questions adjust in real time based on your performance. Nail the basics and get pushed into harder clinical reasoning — struggle and it backs off to rebuild your foundation.</div>
+      </div>
+      <div class="feat-block">
+        <span class="feat-icon">🔥</span>
+        <div class="feat-title">Weak Areas Mode</div>
+        <div class="feat-desc">After every session the app tracks what you missed. Weak Areas mode fires only questions from your problem zones — no wasting time on what you already know cold.</div>
+      </div>
+      <div class="feat-block">
+        <span class="feat-icon">📖</span>
+        <div class="feat-title">Real Explanations</div>
+        <div class="feat-desc">Every question — right or wrong — shows a detailed clinical explanation. Not just "the answer is B." You understand the why so you can apply it on any question, any day.</div>
+      </div>
+      <div class="feat-block">
+        <span class="feat-icon">🎲</span>
+        <div class="feat-title">Mixed Exam Mode</div>
+        <div class="feat-desc">Simulate the real NREMT with randomized 30-question exams pulled from all 6 categories at mixed difficulty — as close to test-day conditions as you can get.</div>
+      </div>
+      <div class="feat-block">
+        <span class="feat-icon">📊</span>
+        <div class="feat-title">Performance Breakdown</div>
+        <div class="feat-desc">Every results screen breaks down your score by category so you see exactly where you stand — and where to spend the next study session.</div>
+      </div>
+      <div class="feat-block">
+        <span class="feat-icon">📱</span>
+        <div class="feat-title">Study Anywhere</div>
+        <div class="feat-desc">Works on your phone, tablet, or laptop. No app to install — open it in any browser. Study on break, between calls, or the night before your exam.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+
+<section class="pricing-section" id="pricing">
+  <div class="wrap">
+    <div class="kicker">Pricing</div>
+    <div class="sec-title">One Goal. Three Plans.</div>
+    <div class="sec-sub">Pay once, access everything. No renewals, no drip-fed content — the full question bank is yours from day one.</div>
+    <div class="pricing-grid">
+
+```
+  <!-- MONTHLY -->
+  <div class="plan">
+    <div class="plan-label">Monthly Access</div>
+    <div class="price-row"><span class="price-sym">$</span><span class="price-int">19</span><span class="price-dec">.99</span></div>
+    <div class="plan-note">Billed monthly · cancel anytime</div>
+    <div class="plan-save ghost">—</div>
+    <div class="plan-div"></div>
+    <div class="plan-tagline">Your exam is coming up soon and you need focused, intensive reps before test day.</div>
+    <ul class="plan-feats">
+      <li><span class="chk">✓</span>Full 447+ question bank</li>
+      <li><span class="chk">✓</span>All 6 EMT categories</li>
+      <li><span class="chk">✓</span>Basic, Intermediate &amp; Advanced</li>
+      <li><span class="chk">✓</span>Adaptive difficulty engine</li>
+      <li><span class="chk">✓</span>Mixed exam mode</li>
+      <li><span class="chk">✓</span>Weak areas tracker</li>
+      <li><span class="chk">✓</span>Detailed explanations every Q</li>
+      <li><span class="chk">✓</span>30 days of access</li>
+    </ul>
+    <button class="plan-btn btn-sec" onclick="window.location.href='ems-checkout.html?plan=monthly'">Get 30-Day Access</button>
+  </div>
+
+  <!-- 90 DAY -->
+  <div class="plan best">
+    <div class="best-tag">Most Popular</div>
+    <div class="plan-label">90-Day Access</div>
+    <div class="price-row"><span class="price-sym">$</span><span class="price-int">49</span><span class="price-dec">.99</span></div>
+    <div class="plan-note">Billed every 3 months · cancel anytime</div>
+    <div class="plan-save">Save $10 vs monthly</div>
+    <div class="plan-div"></div>
+    <div class="plan-tagline">Mid-program and want time to study, retake sessions, and build real confidence before test day.</div>
+    <ul class="plan-feats">
+      <li><span class="chk">✓</span>Full 447+ question bank</li>
+      <li><span class="chk">✓</span>All 6 EMT categories</li>
+      <li><span class="chk">✓</span>Basic, Intermediate &amp; Advanced</li>
+      <li><span class="chk">✓</span>Adaptive difficulty engine</li>
+      <li><span class="chk">✓</span>Mixed exam mode</li>
+      <li><span class="chk">✓</span>Weak areas tracker</li>
+      <li><span class="chk">✓</span>Detailed explanations every Q</li>
+      <li><span class="chk">✓</span>90 days of access</li>
+    </ul>
+    <button class="plan-btn btn-primary" onclick="window.location.href='ems-checkout.html?plan=90day'">Get 90-Day Access →</button>
+  </div>
+
+  <!-- ANNUAL -->
+  <div class="plan">
+    <div class="plan-label">Annual Access</div>
+    <div class="price-row"><span class="price-sym">$</span><span class="price-int">199</span><span class="price-dec">.99</span></div>
+    <div class="plan-note">Billed annually · cancel anytime</div>
+    <div class="plan-save">Best value — save $40</div>
+    <div class="plan-div"></div>
+    <div class="plan-tagline">Starting your EMT program now and want a full year to study, prep, test, and retest without stress.</div>
+    <ul class="plan-feats">
+      <li><span class="chk">✓</span>Full 447+ question bank</li>
+      <li><span class="chk">✓</span>All 6 EMT categories</li>
+      <li><span class="chk">✓</span>Basic, Intermediate &amp; Advanced</li>
+      <li><span class="chk">✓</span>Adaptive difficulty engine</li>
+      <li><span class="chk">✓</span>Mixed exam mode</li>
+      <li><span class="chk">✓</span>Weak areas tracker</li>
+      <li><span class="chk">✓</span>Detailed explanations every Q</li>
+      <li><span class="chk">✓</span>365 days of access</li>
+    </ul>
+    <button class="plan-btn btn-sec" onclick="window.location.href='ems-checkout.html?plan=annual'">Get Annual Access</button>
+  </div>
+
+</div>
+<p class="pricing-note"><span>✓ Cancel anytime.</span> &nbsp; All plans include the full question bank from day one. Billed automatically each cycle — cancel from your account settings.</p>
+```
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+
+<section class="testi-section">
+  <div class="wrap">
+    <div class="kicker">Student Results</div>
+    <div class="sec-title">They Passed. You Can Too.</div>
+    <div class="sec-sub">From first-time test takers to repeat attempts — EMS Prep students pass their NREMT.</div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-q">"I failed my first NREMT using just my textbook. Two weeks with EMS Prep and I passed on my second attempt. The adaptive mode found every gap I had in trauma."</div>
+        <div class="testi-author"><div class="testi-avi">👨</div><div><div class="testi-name">Marcus T.</div><div class="testi-role">EMT-B · Passed 2nd Attempt</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-q">"The explanations are what sold me. Every wrong answer taught me something real. I went from failing practice tests to a 91% on my actual NREMT."</div>
+        <div class="testi-author"><div class="testi-avi">👩</div><div><div class="testi-name">Danielle R.</div><div class="testi-role">EMT-B · Passed 1st Attempt</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-q">"Used the 90-day plan during my whole EMT course. By exam day the test felt easy. The weak areas mode is genuinely one of the best study tools I have ever used."</div>
+        <div class="testi-author"><div class="testi-avi">👨</div><div><div class="testi-name">Jordan K.</div><div class="testi-role">EMT-B · Firefighter Candidate</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+
+<section class="final-section">
+  <div class="final-glow"></div>
+  <h2 class="final-h">Ready to pass?</h2>
+  <p class="final-sub">Join thousands of EMTs who used EMS Prep to pass their NREMT certification.</p>
+  <div class="final-btns">
+    <button class="btn-red" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Choose a Plan →</button>
+    <button class="btn-ghost" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">See the Questions</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-brand">EMS<em>PREP</em></div>
+  <div class="footer-copy">© 2025 EMS Prep · EMT-Basic NREMT Practice</div>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script>
+function toggleMobileNav() {
+  const nav = document.getElementById('mobile-nav');
+  const btn = document.getElementById('ham-btn');
+  const isOpen = nav.classList.contains('open');
+  nav.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+}
+function closeMobileNav() {
+  document.getElementById('mobile-nav').classList.remove('open');
+  document.getElementById('ham-btn').classList.remove('open');
+}
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 640) closeMobileNav();
+});
+</script>
+
+</body>
+</html>
