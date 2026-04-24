@@ -164,8 +164,8 @@ nav{height:58px;display:flex;align-items:center;padding:0 24px;background:rgba(9
 .cat-bd-pct{font-family:‘Barlow Condensed’,sans-serif;font-size:12px;font-weight:700;min-width:34px;text-align:right;}
 
 .result-btns{display:flex;gap:10px;flex-wrap:wrap;}
-.res-btn-sec{flex:1;background:var(–surf);border:1.5px solid var(–border);color:var(–text);border-radius:9px;padding:13px;font-family:‘Barlow Condensed’,sans-serif;font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .15s;min-width:110px;}
-.res-btn-sec:hover{border-color:var(–muted);color:var(–white);background:var(–surf2);}
+.res-btn-sec{flex:1;background:var(–amber);color:white;border:none;border-radius:9px;padding:13px;font-family:‘Barlow Condensed’,sans-serif;font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .15s;min-width:110px;box-shadow:0 4px 16px rgba(244,162,97,.3);}
+.res-btn-sec:hover{background:#e8924a;transform:translateY(-1px);}
 
 @keyframes up{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 
@@ -173,6 +173,22 @@ nav{height:58px;display:flex;align-items:center;padding:0 24px;background:rgba(9
 .mode-row{grid-template-columns:1fr 1fr;}
 .cat-grid{grid-template-columns:repeat(2,1fr);}
 .result-stats{grid-template-columns:repeat(3,1fr);}
+}
+
+/* ── ORANGE BUTTON OVERRIDE ── */
+.btn-ghost,.btn-sec,.plan-btn-ghost,.btn-outline,
+.btn-secondary,.res-btn-sec,.plan-btn-ghost,
+button.btn-ghost, button.btn-sec{
+background:#f4a261 !important;
+color:#fff !important;
+border:none !important;
+box-shadow:0 4px 18px rgba(244,162,97,.35) !important;
+}
+.btn-ghost:hover,.btn-sec:hover,.plan-btn-ghost:hover,
+.btn-outline:hover,.btn-secondary:hover,.res-btn-sec:hover{
+background:#e8924a !important;
+transform:translateY(-1px) !important;
+box-shadow:0 8px 24px rgba(244,162,97,.45) !important;
 }
 </style>
 
@@ -201,7 +217,7 @@ nav{height:58px;display:flex;align-items:center;padding:0 24px;background:rgba(9
 <div id="screen-home">
   <div class="home-top">
     <div class="home-kicker">EMT-Basic · NREMT Prep</div>
-    <div class="home-title">617 Questions.<br>6 Categories.</div>
+    <div class="home-title">660+ Questions.<br>6 Categories.</div>
     <div class="home-sub">Adaptive difficulty. Detailed explanations. Choose a mode and start.</div>
   </div>
 
