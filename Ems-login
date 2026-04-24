@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const _supa = supabase.createClient('https://knrilavynnnlpegfxdkt.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtucmlsYXZ5bm5ubHBlZ2Z4ZGt0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwMDIzNzQsImV4cCI6MjA5MjU3ODM3NH0.u5Vd3Ph7oCMfa8geNsa6oHynuTbD5RH5GD_J0IsEdN8');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMS Prep — Sign In</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#090c11;--bg2:#0d1018;--surf:#111720;--surf2:#171e2b;
+  --border:#1e2a3a;--border2:#263347;--border-focus:#3a5070;
+  --red:#e63946;--red2:#ff4d5a;--amber:#f4a261;--green:#2dc653;
+  --text:#b8cce0;--muted:#4d6070;--white:#eef3fa;
+}
+html{height:100%;}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Barlow',sans-serif;
+  min-height:100vh;display:flex;flex-direction:column;
+  overflow-x:hidden;
+}
+
+/* scanlines */
+body::before{
+content:’’;position:fixed;inset:0;
+background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,.01) 2px,rgba(255,255,255,.01) 3px);
+pointer-events:none;z-index:999;
+}
+
+/* ── LAYOUT ── */
+.page{
+flex:1;
+display:grid;
+grid-template-columns:1fr 480px;
+min-height:100vh;
+}
+
+/* ── LEFT PANEL ── */
+.left{
+position:relative;
+background:var(–bg2);
+border-right:1px solid var(–border);
+display:flex;flex-direction:column;
+padding:40px 48px;
+overflow:hidden;
+}
+.left-glow{
+position:absolute;top:-100px;left:-100px;
+width:600px;height:600px;
+background:radial-gradient(circle,rgba(230,57,70,.07) 0%,transparent 65%);
+pointer-events:none;
+}
+.left-grid{
+position:absolute;inset:0;
+background-image:
+linear-gradient(rgba(230,57,70,.04) 1px,transparent 1px),
+linear-gradient(90deg,rgba(230,57,70,.04) 1px,transparent 1px);
+background-size:60px 60px;
+pointer-events:none;
+}
+
+.left-logo{
+display:flex;align-items:center;gap:10px;
+text-decoration:none;margin-bottom:auto;position:relative;z-index:1;
+}
+.logo-icon{
+width:36px;height:36px;background:var(–red);border-radius:8px;
+display:flex;align-items:center;justify-content:center;font-size:18px;
+box-shadow:0 0 20px rgba(230,57,70,.4);
+}
+.logo-text{
+font-family:‘Barlow Condensed’,sans-serif;font-weight:900;
+font-size:20px;letter-spacing:.07em;color:var(–white);
+}
+.logo-text em{font-style:normal;color:var(–red);}
+
+.left-body{
+position:relative;z-index:1;
+flex:1;display:flex;flex-direction:column;justify-content:center;
+padding:60px 0;
+}
+.left-tag{
+display:inline-flex;align-items:center;gap:8px;
+background:rgba(230,57,70,.08);border:1px solid rgba(230,57,70,.25);
+border-radius:3px;padding:4px 12px;
+font-family:‘Barlow Condensed’,sans-serif;
+font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+color:var(–red);margin-bottom:24px;width:fit-content;
+}
+.blink{width:5px;height:5px;background:var(–red);border-radius:50%;animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.1;}}
+
+.left-h{
+font-family:‘Barlow Condensed’,sans-serif;
+font-size:clamp(42px,5vw,72px);font-weight:900;
+line-height:.9;color:var(–white);margin-bottom:20px;
+}
+.left-h .out{
+display:block;color:transparent;
+-webkit-text-stroke:1.5px rgba(230,57,70,.5);
+}
+.left-h .hot{color:var(–red);-webkit-text-stroke:0;}
+.left-p{
+font-size:15px;font-weight:300;color:var(–muted);
+line-height:1.7;max-width:360px;margin-bottom:48px;
+}
+
+.trust-items{
+display:flex;flex-direction:column;gap:14px;
+}
+.trust-item{
+display:flex;align-items:center;gap:12px;
+font-size:13px;color:var(–text);
+}
+.trust-dot{
+width:28px;height:28px;border-radius:6px;
+background:var(–surf2);border:1px solid var(–border);
+display:flex;align-items:center;justify-content:center;
+font-size:13px;flex-shrink:0;
+}
+
+.left-footer{
+position:relative;z-index:1;
+font-size:11px;color:var(–muted);
+}
+.left-footer a{color:var(–muted);text-decoration:none;}
+.left-footer a:hover{color:var(–text);}
+
+/* ── RIGHT PANEL ── */
+.right{
+display:flex;flex-direction:column;
+justify-content:center;
+padding:60px 48px;
+background:var(–bg);
+position:relative;
+}
+
+.form-header{margin-bottom:36px;}
+.form-title{
+font-family:‘Barlow Condensed’,sans-serif;
+font-size:32px;font-weight:900;color:var(–white);
+letter-spacing:.01em;margin-bottom:6px;
+}
+.form-sub{font-size:14px;font-weight:300;color:var(–muted);}
+.form-sub a{color:var(–red);text-decoration:none;font-weight:500;}
+.form-sub a:hover{color:var(–red2);}
+
+/* TAB SWITCHER */
+.tabs{
+display:flex;gap:0;
+background:var(–surf);border:1px solid var(–border);border-radius:8px;
+padding:4px;margin-bottom:32px;
+}
+.tab{
+flex:1;padding:10px;border-radius:6px;
+font-family:‘Barlow Condensed’,sans-serif;
+font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+cursor:pointer;border:none;background:transparent;
+color:var(–muted);transition:all .2s;
+}
+.tab.active{
+background:var(–surf2);color:var(–white);
+box-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+
+/* FORM */
+.form-group{margin-bottom:18px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+label{
+display:block;
+font-family:‘Barlow Condensed’,sans-serif;
+font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+color:var(–muted);margin-bottom:7px;
+}
+.input-wrap{position:relative;}
+input[type=text],input[type=email],input[type=password]{
+width:100%;
+background:var(–surf);
+border:1px solid var(–border);
+border-radius:7px;
+padding:12px 14px 12px 42px;
+font-family:‘Barlow’,sans-serif;
+font-size:14px;color:var(–white);
+outline:none;
+transition:border-color .15s,box-shadow .15s;
+-webkit-appearance:none;
+}
+input[type=text]:focus,input[type=email]:focus,input[type=password]:focus{
+border-color:var(–border-focus);
+box-shadow:0 0 0 3px rgba(58,80,112,.2);
+}
+input::placeholder{color:var(–muted);}
+.input-icon{
+position:absolute;left:13px;top:50%;transform:translateY(-50%);
+font-size:15px;opacity:.5;pointer-events:none;
+}
+.input-action{
+position:absolute;right:13px;top:50%;transform:translateY(-50%);
+background:none;border:none;cursor:pointer;
+font-size:13px;color:var(–muted);padding:0;
+transition:color .15s;
+}
+.input-action:hover{color:var(–text);}
+
+.form-options{
+display:flex;align-items:center;justify-content:space-between;
+margin-bottom:24px;
+}
+.checkbox-label{
+display:flex;align-items:center;gap:8px;cursor:pointer;
+font-size:13px;color:var(–muted);
+}
+.checkbox-label input{display:none;}
+.checkbox-box{
+width:16px;height:16px;border-radius:4px;
+background:var(–surf);border:1px solid var(–border);
+display:flex;align-items:center;justify-content:center;
+flex-shrink:0;transition:all .15s;font-size:9px;color:white;
+}
+.checkbox-label input:checked ~ .checkbox-box{
+background:var(–red);border-color:var(–red);
+}
+.forgot{font-size:13px;color:var(–muted);text-decoration:none;transition:color .15s;}
+.forgot:hover{color:var(–text);}
+
+.submit-btn{
+width:100%;padding:15px;
+background:var(–red);color:white;border:none;border-radius:8px;
+font-family:‘Barlow Condensed’,sans-serif;
+font-size:16px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+cursor:pointer;transition:all .15s;
+box-shadow:0 4px 20px rgba(230,57,70,.3);
+margin-bottom:24px;
+position:relative;overflow:hidden;
+}
+.submit-btn:hover{background:var(–red2);transform:translateY(-1px);box-shadow:0 8px 28px rgba(230,57,70,.4);}
+.submit-btn:active{transform:translateY(0);}
+.submit-btn.loading .btn-text{opacity:0;}
+.submit-btn .btn-spinner{
+position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+display:none;
+width:18px;height:18px;border:2px solid rgba(255,255,255,.3);
+border-top-color:white;border-radius:50%;
+animation:spin .6s linear infinite;
+}
+.submit-btn.loading .btn-spinner{display:block;}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg);}}
+
+.divider-or{
+display:flex;align-items:center;gap:14px;margin-bottom:20px;
+}
+.divider-or::before,.divider-or::after{content:’’;flex:1;height:1px;background:var(–border);}
+.divider-or span{font-size:11px;color:var(–muted);white-space:nowrap;letter-spacing:.08em;text-transform:uppercase;}
+
+.social-btns{display:flex;gap:10px;margin-bottom:28px;}
+.social-btn{
+flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
+background:var(–surf);border:1px solid var(–border);border-radius:7px;
+padding:11px;cursor:pointer;transition:all .15s;
+font-size:13px;font-weight:500;color:var(–text);
+}
+.social-btn:hover{border-color:var(–border2);background:var(–surf2);color:var(–white);}
+.social-icon{font-size:16px;}
+
+.terms-note{
+font-size:11px;color:var(–muted);text-align:center;line-height:1.6;
+}
+.terms-note a{color:var(–muted);text-decoration:underline;}
+
+/* ── SIGNUP EXTRAS ── */
+.plan-summary{
+background:var(–surf);border:1px solid var(–border);border-radius:8px;
+padding:14px 16px;margin-bottom:20px;
+display:flex;align-items:center;gap:12px;
+}
+.plan-summary-icon{font-size:20px;}
+.plan-summary-name{
+font-family:‘Barlow Condensed’,sans-serif;
+font-size:14px;font-weight:800;color:var(–white);
+}
+.plan-summary-sub{font-size:11px;color:var(–muted);}
+.plan-summary-price{
+margin-left:auto;
+font-family:‘Barlow Condensed’,sans-serif;
+font-size:18px;font-weight:900;color:var(–white);
+}
+.plan-change{font-size:11px;color:var(–red);cursor:pointer;margin-left:6px;font-weight:600;}
+.plan-change:hover{color:var(–red2);}
+
+/* ── PASSWORD STRENGTH ── */
+.pw-strength{margin-top:8px;}
+.pw-bars{display:flex;gap:4px;margin-bottom:5px;}
+.pw-bar{flex:1;height:3px;border-radius:2px;background:var(–border);transition:background .3s;}
+.pw-label{font-size:10px;color:var(–muted);}
+
+/* ── SUCCESS STATE ── */
+.success-state{
+display:none;text-align:center;padding:20px 0;
+animation:up .4s ease both;
+}
+.success-icon{
+font-size:48px;margin-bottom:16px;display:block;
+animation:pop .4s ease both;
+}
+@keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.1);}100%{transform:scale(1);}}
+.success-title{
+font-family:‘Barlow Condensed’,sans-serif;
+font-size:26px;font-weight:900;color:var(–white);margin-bottom:8px;
+}
+.success-sub{font-size:14px;color:var(–muted);line-height:1.6;margin-bottom:28px;}
+.success-btn{
+display:inline-block;background:var(–red);color:white;border:none;
+padding:14px 36px;border-radius:8px;
+font-family:‘Barlow Condensed’,sans-serif;
+font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+cursor:pointer;transition:all .15s;
+box-shadow:0 4px 20px rgba(230,57,70,.3);
+}
+.success-btn:hover{background:var(–red2);}
+
+@keyframes up{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+.page{grid-template-columns:1fr;}
+.left{display:none;}
+.right{padding:80px 28px 40px;}
+}
+
+.plan-summary{cursor:pointer;}
+.plan-summary:hover{border-color:var(–border2);background:var(–surf2);}
+.modal-plan-opt{
+display:flex;align-items:center;gap:14px;
+padding:14px 16px;border-radius:10px;
+border:1px solid var(–border);background:var(–surf2);
+cursor:pointer;transition:all .15s;
+}
+.modal-plan-opt:hover{border-color:#3a5070;}
+.modal-plan-opt.selected{border-color:#e63946;background:rgba(230,57,70,.06);}
+
+/* Mobile nav */
+.ham-btn{
+display:none;width:34px;height:34px;border-radius:7px;
+background:var(–surf);border:1px solid var(–border);
+align-items:center;justify-content:center;flex-direction:column;gap:5px;
+cursor:pointer;transition:border-color .15s;
+}
+.ham-btn span{display:block;width:14px;height:2px;background:var(–text);border-radius:2px;transition:all .25s;}
+.ham-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.ham-btn.open span:nth-child(2){opacity:0;}
+.ham-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mob-drawer{
+display:none;position:fixed;top:62px;left:0;right:0;
+background:rgba(9,12,17,.98);backdrop-filter:blur(16px);
+border-bottom:1px solid var(–border);padding:12px 20px 20px;
+flex-direction:column;gap:4px;z-index:199;
+animation:slideDown .2s ease both;
+}
+.mob-drawer.open{display:flex;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.mob-drawer a{color:var(–text);text-decoration:none;font-size:14px;font-weight:500;padding:11px 4px;border-bottom:1px solid var(–border);}
+.mob-drawer a:last-child{border-bottom:none;}
+@media(max-width:600px){.ham-btn{display:flex;}.nav-pill{display:none !important;}}
+
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- LEFT PANEL -->
+
+  <div class="left">
+    <div class="left-glow"></div>
+    <div class="left-grid"></div>
+
+```
+<a href="ems-landing.html" class="left-logo">
+  <div class="logo-icon">🚑</div>
+  <span class="logo-text">EMS<em>PREP</em></span>
+</a>
+
+<div class="left-body">
+  <div class="left-tag"><div class="blink"></div>EMT-Basic · NREMT Prep</div>
+  <h1 class="left-h">
+    TRAIN<br>HARD.<br>
+    <span class="out">PASS <span class="hot">NREMT.</span></span>
+  </h1>
+  <p class="left-p">447 adaptive questions across 6 EMT categories. Built to find your weak spots and close them before test day.</p>
+
+  <div class="trust-items">
+    <div class="trust-item">
+      <div class="trust-dot">🎯</div>
+      Adaptive difficulty — questions adjust to your level
+    </div>
+    <div class="trust-item">
+      <div class="trust-dot">🔥</div>
+      Weak areas mode — study exactly what you're missing
+    </div>
+    <div class="trust-item">
+      <div class="trust-dot">📖</div>
+      Detailed explanation after every single question
+    </div>
+    <div class="trust-item">
+      <div class="trust-dot">📊</div>
+      Full performance breakdown by category
+    </div>
+  </div>
+</div>
+
+<div class="left-footer">
+  <a href="#">Privacy Policy</a> &nbsp;·&nbsp;
+  <a href="#">Terms of Service</a> &nbsp;·&nbsp;
+  © 2025 EMS Prep
+</div>
+```
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+
+  <div class="right">
+
+```
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" id="tab-login" onclick="switchTab('login')">Sign In</button>
+  <button class="tab" id="tab-signup" onclick="switchTab('signup')">Create Account</button>
+</div>
+
+<!-- LOGIN FORM -->
+<div id="form-login">
+  <div class="form-header">
+    <div class="form-title">Welcome back</div>
+    <div class="form-sub">No account? <a href="#" onclick="switchTab('signup');return false;">Create one free →</a></div>
+  </div>
+
+  <div class="form-group">
+    <label>Email Address</label>
+    <div class="input-wrap">
+      <span class="input-icon">✉️</span>
+      <input type="email" id="login-email" placeholder="you@example.com" autocomplete="email">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Password</label>
+    <div class="input-wrap">
+      <span class="input-icon">🔒</span>
+      <input type="password" id="login-pw" placeholder="Your password" autocomplete="current-password">
+      <button class="input-action" onclick="togglePw('login-pw',this)" type="button">Show</button>
+    </div>
+  </div>
+
+  <div class="form-options">
+    <label class="checkbox-label">
+      <input type="checkbox" checked>
+      <div class="checkbox-box">✓</div>
+      Keep me signed in
+    </label>
+    <a href="ems-forgot-password.html" class="forgot">Forgot password?</a>
+  </div>
+
+  <button class="submit-btn" id="login-btn" onclick="handleLogin()">
+    <span class="btn-text">Sign In →</span>
+    <div class="btn-spinner"></div>
+  </button>
+
+  <div class="divider-or"><span>or continue with</span></div>
+
+  <div class="social-btns">
+    <button class="social-btn"><span class="social-icon">G</span> Google</button>
+    <button class="social-btn"><span class="social-icon">🍎</span> Apple</button>
+  </div>
+
+  <div class="terms-note">
+    By signing in you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+  </div>
+</div>
+
+<!-- SIGNUP FORM -->
+<div id="form-signup" style="display:none">
+
+  <!-- Success State -->
+  <div class="success-state" id="signup-success">
+    <span class="success-icon">🎉</span>
+    <div class="success-title">You're in. Let's go.</div>
+    <div class="success-sub">Your account is ready. Start practicing now and track every session from your dashboard.</div>
+    <button class="success-btn" onclick="window.location.href='ems-dashboard.html'">Start Practicing →</button>
+  </div>
+
+  <!-- Form State -->
+  <div id="signup-form-body">
+    <div class="form-header">
+      <div class="form-title">Create your account</div>
+      <div class="form-sub">Already have one? <a href="#" onclick="switchTab('login');return false;">Sign in →</a></div>
+    </div>
+
+    <!-- Plan Summary -->
+    <div class="plan-summary" id="plan-summary" onclick="openPlanPicker()" title="Click to change plan">
+      <span class="plan-summary-icon">🚑</span>
+      <div>
+        <div class="plan-summary-name" id="ps-name">90-Day Access</div>
+        <div class="plan-summary-sub" id="ps-sub">Full question bank · All categories</div>
+      </div>
+      <div class="plan-summary-price"><span id="ps-price">$49.99</span> <span class="plan-change">Change</span></div>
+    </div>
+
+    <!-- Plan Picker Modal -->
+    <div id="plan-modal" style="display:none;position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;">
+      <div id="plan-modal-bg" onclick="closePlanPicker()" style="position:absolute;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);"></div>
+      <div style="position:relative;z-index:1;background:#111720;border:1px solid #1e2a3a;border-radius:16px;padding:32px 28px;width:100%;max-width:440px;animation:up .25s ease both;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+          <div style="font-family:Barlow Condensed,sans-serif;font-size:20px;font-weight:900;color:#eef3fa;">Choose Your Plan</div>
+          <button onclick="closePlanPicker()" style="background:none;border:none;color:#4d6070;font-size:20px;cursor:pointer;line-height:1;">✕</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+
+          <div class="modal-plan-opt" id="mopt-monthly" onclick="selectPlan('monthly','Monthly Access','30 days full access','$19.99')" data-sel="false">
+            <div style="flex:1;">
+              <div style="font-family:Barlow Condensed,sans-serif;font-size:16px;font-weight:800;color:#eef3fa;margin-bottom:2px;">Monthly Access</div>
+              <div style="font-size:12px;color:#4d6070;">30 days · Best for last-minute prep</div>
+            </div>
+            <div style="font-family:Barlow Condensed,sans-serif;font-size:22px;font-weight:900;color:#eef3fa;">$19.99</div>
+          </div>
+
+          <div class="modal-plan-opt selected" id="mopt-90day" onclick="selectPlan('90day','90-Day Access','Full question bank · All categories','$49.99')" data-sel="true">
+            <div style="flex:1;">
+              <div style="font-family:Barlow Condensed,sans-serif;font-size:16px;font-weight:800;color:#eef3fa;margin-bottom:2px;">90-Day Access <span style="font-size:10px;background:#e63946;color:white;padding:2px 7px;border-radius:100px;margin-left:6px;vertical-align:middle;">Popular</span></div>
+              <div style="font-size:12px;color:#4d6070;">90 days · Best for most students</div>
+            </div>
+            <div style="font-family:Barlow Condensed,sans-serif;font-size:22px;font-weight:900;color:#eef3fa;">$49.99</div>
+          </div>
+
+          <div class="modal-plan-opt" id="mopt-annual" onclick="selectPlan('annual','Annual Access','365 days · Best value','$199.99')" data-sel="false">
+            <div style="flex:1;">
+              <div style="font-family:Barlow Condensed,sans-serif;font-size:16px;font-weight:800;color:#eef3fa;margin-bottom:2px;">Annual Access</div>
+              <div style="font-size:12px;color:#4d6070;">365 days · Best value, save $40</div>
+            </div>
+            <div style="font-family:Barlow Condensed,sans-serif;font-size:22px;font-weight:900;color:#eef3fa;">$199.99</div>
+          </div>
+
+        </div>
+        <button onclick="closePlanPicker()" style="width:100%;margin-top:20px;padding:13px;background:#e63946;color:white;border:none;border-radius:8px;font-family:Barlow Condensed,sans-serif;font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;">Confirm Plan</button>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group" style="margin-bottom:0">
+        <label>First Name</label>
+        <div class="input-wrap">
+          <span class="input-icon">👤</span>
+          <input type="text" id="first-name" placeholder="First" autocomplete="given-name">
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label>Last Name</label>
+        <div class="input-wrap">
+          <span class="input-icon">👤</span>
+          <input type="text" id="last-name" placeholder="Last" autocomplete="family-name">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-top:18px">
+      <label>Email Address</label>
+      <div class="input-wrap">
+        <span class="input-icon">✉️</span>
+        <input type="email" id="signup-email" placeholder="you@example.com" autocomplete="email">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <div class="input-wrap">
+        <span class="input-icon">🔒</span>
+        <input type="password" id="signup-pw" placeholder="Create a password" oninput="checkStrength(this.value)" autocomplete="new-password">
+        <button class="input-action" onclick="togglePw('signup-pw',this)" type="button">Show</button>
+      </div>
+      <div class="pw-strength">
+        <div class="pw-bars">
+          <div class="pw-bar" id="pwb1"></div>
+          <div class="pw-bar" id="pwb2"></div>
+          <div class="pw-bar" id="pwb3"></div>
+          <div class="pw-bar" id="pwb4"></div>
+        </div>
+        <div class="pw-label" id="pw-label">Use 8+ characters with numbers and symbols</div>
+      </div>
+    </div>
+
+    <button class="submit-btn" id="signup-btn" onclick="handleSignup()">
+      <span class="btn-text">Create Account &amp; Continue →</span>
+      <div class="btn-spinner"></div>
+    </button>
+
+    <div class="divider-or"><span>or sign up with</span></div>
+
+    <div class="social-btns">
+      <button class="social-btn"><span class="social-icon">G</span> Google</button>
+      <button class="social-btn"><span class="social-icon">🍎</span> Apple</button>
+    </div>
+
+    <div class="terms-note">
+      By creating an account you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. Your plan will be activated after checkout.
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<script>
+function switchTab(tab) {
+  const isLogin = tab === 'login';
+  document.getElementById('tab-login').classList.toggle('active', isLogin);
+  document.getElementById('tab-signup').classList.toggle('active', !isLogin);
+  document.getElementById('form-login').style.display = isLogin ? 'block' : 'none';
+  document.getElementById('form-signup').style.display = isLogin ? 'none' : 'block';
+}
+
+function togglePw(id, btn) {
+  const input = document.getElementById(id);
+  const showing = input.type === 'text';
+  input.type = showing ? 'password' : 'text';
+  btn.textContent = showing ? 'Show' : 'Hide';
+}
+
+function checkStrength(pw) {
+  const bars = [document.getElementById('pwb1'), document.getElementById('pwb2'), document.getElementById('pwb3'), document.getElementById('pwb4')];
+  const label = document.getElementById('pw-label');
+  let score = 0;
+  if (pw.length >= 8) score++;
+  if (pw.length >= 12) score++;
+  if (/[0-9]/.test(pw)) score++;
+  if (/[^a-zA-Z0-9]/.test(pw)) score++;
+
+  const colors = ['#e63946', '#f4a261', '#f4a261', '#2dc653'];
+  const labels = ['Too short', 'Weak', 'Getting there', 'Strong password'];
+
+  bars.forEach((b, i) => {
+    b.style.background = i < score ? colors[score - 1] : 'var(--border)';
+  });
+  label.textContent = pw.length === 0 ? 'Use 8+ characters with numbers and symbols' : labels[Math.max(0, score - 1)];
+  label.style.color = score >= 3 ? 'var(--green)' : score >= 2 ? 'var(--amber)' : 'var(--red)';
+  if (pw.length === 0) label.style.color = 'var(--muted)';
+}
+
+async function handleLogin() {
+  const btn = document.getElementById('login-btn');
+  const email = document.getElementById('login-email').value.trim();
+  const pw = document.getElementById('login-pw').value;
+  if (!email || !pw) { shake(btn); return; }
+  btn.classList.add('loading');
+  const { data, error } = await _supa.auth.signInWithPassword({ email, password: pw });
+  btn.classList.remove('loading');
+  if (error) {
+    showLoginError(error.message);
+    shake(btn);
+    return;
+  }
+  window.location.href = 'ems-dashboard.html';
+}
+
+function showLoginError(msg) {
+  let el = document.getElementById('login-error-msg');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'login-error-msg';
+    el.style.cssText = 'color:#e63946;font-size:12px;margin-bottom:14px;text-align:center;';
+    document.getElementById('login-btn').before(el);
+  }
+  el.textContent = msg === 'Invalid login credentials' ? 'Incorrect email or password.' : msg;
+}
+
+async function handleSignup() {
+  const btn = document.getElementById('signup-btn');
+  const first = document.getElementById('first-name').value.trim();
+  const last = document.getElementById('last-name').value.trim();
+  const email = document.getElementById('signup-email').value.trim();
+  const pw = document.getElementById('signup-pw').value;
+  if (!first || !email || !pw) { shake(btn); return; }
+  btn.classList.add('loading');
+  const { data, error } = await _supa.auth.signUp({
+    email,
+    password: pw,
+    options: { data: { first_name: first, last_name: last } }
+  });
+  btn.classList.remove('loading');
+  if (error) {
+    showSignupError(error.message);
+    shake(btn);
+    return;
+  }
+  document.getElementById('signup-form-body').style.display = 'none';
+  const s = document.getElementById('signup-success');
+  s.style.display = 'block';
+}
+
+function showSignupError(msg) {
+  let el = document.getElementById('signup-error-msg');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'signup-error-msg';
+    el.style.cssText = 'color:#e63946;font-size:12px;margin-bottom:14px;text-align:center;';
+    document.getElementById('signup-btn').before(el);
+  }
+  el.textContent = msg;
+}
+
+function shake(el) {
+  el.style.animation = 'none';
+  el.offsetHeight;
+  el.style.animation = 'shake .4s ease';
+}
+
+// Allow Enter key to submit
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  if (document.getElementById('plan-modal').style.display === 'flex') return;
+  if (document.getElementById('form-login').style.display !== 'none') handleLogin();
+  else handleSignup();
+});
+
+// Plan picker
+let currentPlan = '90day';
+
+function openPlanPicker() {
+  const modal = document.getElementById('plan-modal');
+  modal.style.display = 'flex';
+}
+function closePlanPicker() {
+  document.getElementById('plan-modal').style.display = 'none';
+}
+function selectPlan(id, name, sub, price) {
+  currentPlan = id;
+  // update summary bar
+  document.getElementById('ps-name').textContent = name;
+  document.getElementById('ps-sub').textContent = sub;
+  document.getElementById('ps-price').textContent = price;
+  // highlight selected option
+  ['monthly','90day','annual'].forEach(p => {
+    const el = document.getElementById('mopt-' + p);
+    if (el) el.classList.toggle('selected', p === id);
+  });
+}
+
+const style = document.createElement('style');
+style.textContent = '@keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}40%{transform:translateX(6px);}60%{transform:translateX(-4px);}80%{transform:translateX(4px);}}';
+document.head.appendChild(style);
+</script>
+
+<script>
+function toggleDrw(){
+  const d=document.getElementById('mob-drw'),b=document.getElementById('ham');
+  const o=d.classList.contains('open');
+  d.classList.toggle('open',!o);b.classList.toggle('open',!o);
+}
+window.addEventListener('resize',()=>{if(window.innerWidth>600){
+  document.getElementById('mob-drw').classList.remove('open');
+  document.getElementById('ham').classList.remove('open');
+}});
+</script>
+
+</body>
+</html>
