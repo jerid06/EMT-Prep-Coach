@@ -42,8 +42,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;ali
 .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:70px;animation:up .5s .2s ease both;}
 .btn-red{background:var(–red);color:white;border:none;padding:15px 38px;border-radius:6px;font-family:‘Barlow Condensed’,sans-serif;font-size:16px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;box-shadow:0 4px 28px rgba(230,57,70,.3);}
 .btn-red:hover{background:var(–red2);transform:translateY(-2px);box-shadow:0 8px 36px rgba(230,57,70,.4);}
-.btn-ghost{background:transparent;color:var(–text);border:1px solid var(–border2);padding:15px 32px;border-radius:6px;font-family:‘Barlow Condensed’,sans-serif;font-size:16px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;}
-.btn-ghost:hover{border-color:var(–muted);color:var(–white);}
+.btn-ghost{background:var(–amber);color:white;border:none;padding:15px 32px;border-radius:6px;font-family:‘Barlow Condensed’,sans-serif;font-size:16px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;box-shadow:0 4px 20px rgba(244,162,97,.3);}
+.btn-ghost:hover{background:#e8924a;transform:translateY(-1px);box-shadow:0 8px 28px rgba(244,162,97,.4);}
 .hero-stats{display:inline-flex;border:1px solid var(–border);border-radius:10px;overflow:hidden;background:var(–surf);animation:up .5s .27s ease both;}
 .h-stat{padding:18px 34px;text-align:center;border-right:1px solid var(–border);}
 .h-stat:last-child{border-right:none;}
@@ -108,8 +108,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;display:flex;ali
 .plan-btn{width:100%;padding:14px;border-radius:8px;border:none;font-family:‘Barlow Condensed’,sans-serif;font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;}
 .btn-primary{background:var(–red);color:white;box-shadow:0 4px 20px rgba(230,57,70,.3);}
 .btn-primary:hover{background:var(–red2);transform:translateY(-1px);}
-.btn-sec{background:transparent;color:var(–text);border:1px solid var(–border2);}
-.btn-sec:hover{border-color:var(–muted);color:var(–white);}
+.btn-sec{background:var(–amber);color:white;border:none;box-shadow:0 4px 16px rgba(244,162,97,.3);}
+.btn-sec:hover{background:#e8924a;transform:translateY(-1px);}
 .pricing-note{text-align:center;font-size:12px;color:var(–muted);margin-top:28px;}
 .pricing-note span{color:var(–green);}
 
@@ -196,7 +196,23 @@ letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;
 .nav-pill{display:none;}
 }
 
+/* ── ORANGE BUTTON OVERRIDE ── */
+.btn-ghost,.btn-sec,.plan-btn-ghost,.btn-outline,
+.btn-secondary,.res-btn-sec,.plan-btn-ghost,
+button.btn-ghost, button.btn-sec{
+background:#f4a261 !important;
+color:#fff !important;
+border:none !important;
+box-shadow:0 4px 18px rgba(244,162,97,.35) !important;
+}
+.btn-ghost:hover,.btn-sec:hover,.plan-btn-ghost:hover,
+.btn-outline:hover,.btn-secondary:hover,.res-btn-sec:hover{
+background:#e8924a !important;
+transform:translateY(-1px) !important;
+box-shadow:0 8px 24px rgba(244,162,97,.45) !important;
+}
 </style>
+
 </head>
 <body>
 
@@ -226,7 +242,7 @@ letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-grid"></div>
-  <div class="hero-badge"><div class="blink"></div>EMT-Basic · NREMT Prep · 447 Questions</div>
+  <div class="hero-badge"><div class="blink"></div>EMT-Basic · NREMT Prep · 660+ Questions</div>
   <h1 class="hero-h1">TRAIN HARD.<br><span class="out">PASS <span class="hot">NREMT.</span></span></h1>
   <p class="hero-p">Adaptive practice tests built for EMT-Basic certification. Every question has a detailed explanation — because understanding beats memorizing.</p>
   <div class="hero-btns">
@@ -234,7 +250,7 @@ letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;
     <button class="btn-ghost" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">See What's Covered</button>
   </div>
   <div class="hero-stats">
-    <div class="h-stat"><span class="h-stat-n">447+</span><span class="h-stat-l">Questions</span></div>
+    <div class="h-stat"><span class="h-stat-n">660+</span><span class="h-stat-l">Questions</span></div>
     <div class="h-stat"><span class="h-stat-n">6</span><span class="h-stat-l">Categories</span></div>
     <div class="h-stat"><span class="h-stat-n">3</span><span class="h-stat-l">Difficulty Tiers</span></div>
     <div class="h-stat"><span class="h-stat-n">EMT</span><span class="h-stat-l">Level Only</span></div>
@@ -255,37 +271,37 @@ letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;
         <span class="cat-emoji">💨</span>
         <div class="cat-name">Airway &amp; Breathing</div>
         <div class="cat-desc">Airway management, ventilation, oxygen delivery, respiratory assessment and emergencies</div>
-        <div class="cat-foot"><span class="cat-count">~70 Questions</span><div class="pips"><div class="pip on" style="--c:#4fa3e0"></div><div class="pip on" style="--c:#4fa3e0"></div><div class="pip on" style="--c:#4fa3e0"></div></div></div>
+        <div class="cat-foot"><span class="cat-count">87 Questions</span><div class="pips"><div class="pip on" style="--c:#4fa3e0"></div><div class="pip on" style="--c:#4fa3e0"></div><div class="pip on" style="--c:#4fa3e0"></div></div></div>
       </div>
       <div class="cat-card" style="--c:#e63946">
         <span class="cat-emoji">❤️</span>
         <div class="cat-name">Cardiac &amp; Circulation</div>
         <div class="cat-desc">CPR, AED, cardiac emergencies, dysrhythmia recognition, STEMI, chest pain protocols</div>
-        <div class="cat-foot"><span class="cat-count">~96 Questions</span><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div></div></div>
+        <div class="cat-foot"><span class="cat-count">123 Questions</span><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div></div></div>
       </div>
       <div class="cat-card" style="--c:#f4a261">
         <span class="cat-emoji">🩹</span>
         <div class="cat-name">Trauma</div>
         <div class="cat-desc">Hemorrhage control, fractures, burns, shock management, TBI, spinal injuries</div>
-        <div class="cat-foot"><span class="cat-count">~66 Questions</span><div class="pips"><div class="pip on" style="--c:#f4a261"></div><div class="pip on" style="--c:#f4a261"></div><div class="pip on" style="--c:#f4a261"></div></div></div>
+        <div class="cat-foot"><span class="cat-count">93 Questions</span><div class="pips"><div class="pip on" style="--c:#f4a261"></div><div class="pip on" style="--c:#f4a261"></div><div class="pip on" style="--c:#f4a261"></div></div></div>
       </div>
       <div class="cat-card" style="--c:#2dc653">
         <span class="cat-emoji">💊</span>
         <div class="cat-name">Medical Emergencies</div>
         <div class="cat-desc">Stroke, diabetes, seizures, overdose, anaphylaxis, altered mental status</div>
-        <div class="cat-foot"><span class="cat-count">~91 Questions</span><div class="pips"><div class="pip on" style="--c:#2dc653"></div><div class="pip on" style="--c:#2dc653"></div><div class="pip on" style="--c:#2dc653"></div></div></div>
+        <div class="cat-foot"><span class="cat-count">116 Questions</span><div class="pips"><div class="pip on" style="--c:#2dc653"></div><div class="pip on" style="--c:#2dc653"></div><div class="pip on" style="--c:#2dc653"></div></div></div>
       </div>
       <div class="cat-card" style="--c:#a78bfa">
         <span class="cat-emoji">📻</span>
         <div class="cat-name">EMS Operations</div>
         <div class="cat-desc">Scene safety, triage, MCI, legal and ethical issues, documentation, protocols</div>
-        <div class="cat-foot"><span class="cat-count">~67 Questions</span><div class="pips"><div class="pip on" style="--c:#a78bfa"></div><div class="pip on" style="--c:#a78bfa"></div><div class="pip on" style="--c:#a78bfa"></div></div></div>
+        <div class="cat-foot"><span class="cat-count">93 Questions</span><div class="pips"><div class="pip on" style="--c:#a78bfa"></div><div class="pip on" style="--c:#a78bfa"></div><div class="pip on" style="--c:#a78bfa"></div></div></div>
       </div>
       <div class="cat-card" style="--c:#f472b6">
         <span class="cat-emoji">🧒</span>
         <div class="cat-name">Pediatric Care</div>
         <div class="cat-desc">Pediatric assessment, CPR differences, respiratory emergencies, abuse recognition</div>
-        <div class="cat-foot"><span class="cat-count">~78 Questions</span><div class="pips"><div class="pip on" style="--c:#f472b6"></div><div class="pip on" style="--c:#f472b6"></div><div class="pip on" style="--c:#f472b6"></div></div></div>
+        <div class="cat-foot"><span class="cat-count">105 Questions</span><div class="pips"><div class="pip on" style="--c:#f472b6"></div><div class="pip on" style="--c:#f472b6"></div><div class="pip on" style="--c:#f472b6"></div></div></div>
       </div>
     </div>
   </div>
@@ -356,7 +372,7 @@ letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;
     <div class="plan-div"></div>
     <div class="plan-tagline">Your exam is coming up soon and you need focused, intensive reps before test day.</div>
     <ul class="plan-feats">
-      <li><span class="chk">✓</span>Full 447+ question bank</li>
+      <li><span class="chk">✓</span>Full 660+ question bank</li>
       <li><span class="chk">✓</span>All 6 EMT categories</li>
       <li><span class="chk">✓</span>Basic, Intermediate &amp; Advanced</li>
       <li><span class="chk">✓</span>Adaptive difficulty engine</li>
@@ -378,7 +394,7 @@ letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;
     <div class="plan-div"></div>
     <div class="plan-tagline">Mid-program and want time to study, retake sessions, and build real confidence before test day.</div>
     <ul class="plan-feats">
-      <li><span class="chk">✓</span>Full 447+ question bank</li>
+      <li><span class="chk">✓</span>Full 660+ question bank</li>
       <li><span class="chk">✓</span>All 6 EMT categories</li>
       <li><span class="chk">✓</span>Basic, Intermediate &amp; Advanced</li>
       <li><span class="chk">✓</span>Adaptive difficulty engine</li>
@@ -399,7 +415,7 @@ letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;
     <div class="plan-div"></div>
     <div class="plan-tagline">Starting your EMT program now and want a full year to study, prep, test, and retest without stress.</div>
     <ul class="plan-feats">
-      <li><span class="chk">✓</span>Full 447+ question bank</li>
+      <li><span class="chk">✓</span>Full 660+ question bank</li>
       <li><span class="chk">✓</span>All 6 EMT categories</li>
       <li><span class="chk">✓</span>Basic, Intermediate &amp; Advanced</li>
       <li><span class="chk">✓</span>Adaptive difficulty engine</li>
